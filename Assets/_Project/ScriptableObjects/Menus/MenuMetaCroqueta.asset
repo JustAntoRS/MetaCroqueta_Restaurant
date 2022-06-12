@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 287d6be1350adf5468f7cad2ec758b33, type: 3}
+  m_Name: MenuMetaCroqueta
+  m_EditorClassIdentifier: 
+  menuPlates:
+  - {fileID: 11400000, guid: a3bc5cc9f5cfcfc408a0b2c473a926a6, type: 2}
+  - {fileID: 11400000, guid: f2b200f9beeaa5f4ca2d4f039af0100a, type: 2}
