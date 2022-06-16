@@ -4,18 +4,28 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class FoodMovement : MonoBehaviour
+public class FoodBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject targetPos;
-    [SerializeField] private bool movementFinished;
+    #region Vars
     
+    [SerializeField] private GameObject targetPos;
     [Range(0f, 20f)]
     [SerializeField] private float movementSpeed;
+
+    [SerializeField] private bool isStarted;
+    
+    private bool movementFinished;
+    
+    #endregion
+    
+    #region Unity
     
     // Start is called before the first frame update
     void Start()
     {
+        isStarted = false;
         movementFinished = true;
+        targetPos = gameObject;
     }
 
     // Update is called once per frame
@@ -23,7 +33,7 @@ public class FoodMovement : MonoBehaviour
     {
         Vector3 currentPos = transform.position;
         
-        if (movementFinished)
+        if (movementFinished && isStarted)
         {
             movementFinished = false;
             targetPos = FoodMovementManager.Instance.GetRandomMovementPoint();
@@ -33,7 +43,16 @@ public class FoodMovement : MonoBehaviour
         transform.position = Vector3.Lerp(currentPos, targetPos.transform.position, Time.deltaTime * movementSpeed);
         
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Mouth"))
+        {
+            Debug.Log($"Comido {other.name}");
+            GameManager.Instance.IncreasePoints(gameObject);
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("MovementPoint") && targetPos == other.gameObject)
@@ -41,4 +60,15 @@ public class FoodMovement : MonoBehaviour
             movementFinished = true;
         }
     }
+    
+    #endregion
+    
+    #region Methods
+    
+    public void StartMovement()
+    {
+        isStarted = true;
+    }
+    
+    #endregion
 }

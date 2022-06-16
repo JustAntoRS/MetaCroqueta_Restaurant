@@ -19,6 +19,9 @@ public class GameManager : Singleton<GameManager>
     [Tooltip("Transform point where the ingredients are going to be instantiated. That Transform should be placed over tableware.")]
     [SerializeField] private Transform instancePoint;
 
+    [SerializeField] private GameObject vfxEating;
+    [SerializeField] private GameObject sfxEating;
+     
     private List<GameObject> selectedIngredients = new List<GameObject>();
     
     #endregion
@@ -46,12 +49,10 @@ public class GameManager : Singleton<GameManager>
         if (gameStatus != GameStatus.GameWaiting)
             return;
         
-        selectedIngredients.Clear();
+        ClearIngredientsFromPlate();
         
         foreach(var ingredient  in plate.Ingredients())
         {
-            Debug.Log($"Hay {ingredient.Quantity()} de {ingredient.Ingredient().name}");
-            
             foreach (int value in Enumerable.Range(1, ingredient.Quantity()))
             {
                 var go = Instantiate(ingredient.Ingredient(), instancePoint);
@@ -67,18 +68,49 @@ public class GameManager : Singleton<GameManager>
      */
     public void StartGame()
     {
+        if (gameStatus == GameStatus.GameStarted)
+            return;
+        
         gameStatus = GameStatus.GameStarted;
 
         foreach (GameObject ingredient in selectedIngredients)
         {
-            Debug.Log($"Comienza a moverse {ingredient.name}");
-
             // TODO 
             // Start movement in the Ingredient script movement controller 
-            
+            ingredient.GetComponent<FoodBehaviour>().StartMovement();
         }
     }
 
-    #endregion 
+    private void ClearIngredientsFromPlate()
+    {
+        foreach (var ingredient in selectedIngredients)
+        {
+            Destroy(ingredient);
+        }
+        
+        selectedIngredients.Clear();
+
+    }
+
+    public void IncreasePoints(GameObject ingredient)
+    {
+        Vector3 position = ingredient.transform.position;
+        GameObject vfx = Instantiate(vfxEating);
+        vfx.transform.position = position;
+        
+        GameObject sfx = Instantiate(sfxEating);
+        sfx.transform.position = position;
+        
+        selectedIngredients.Remove(ingredient);
+        Destroy(ingredient);
+        
+        Debug.Log("+100 points");
+
+        if (selectedIngredients.Count == 0)
+        {
+            gameStatus = GameStatus.GameWaiting;
+        }
+    }
     
+    #endregion
 }

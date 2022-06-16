@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private List<MenuPlateUI> platesUI;
    
     private MenuSO _menu;
-    
+
     #endregion
     
     #region Unity
@@ -19,7 +20,7 @@ public class MenuController : MonoBehaviour
      * Gets the menu from the GameManager and ends if menu is null or does not have plates
      * Otherwise the plates are shown inside the menu
      */
-    void Start()
+    private void Start()
     {
         
         _menu = GameManager.Instance.menu;
@@ -33,7 +34,16 @@ public class MenuController : MonoBehaviour
 
         InitMenuPlates();
     }
-    
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < _menu.MenuPlates().Count; i++)
+        {
+            PlateSO plate = _menu.MenuPlates()[i];
+            platesUI[i].OnSelectedMenuPlate -= PickMenuPlate;
+        }
+    }
+
     #endregion
     
     #region Methods
@@ -57,19 +67,16 @@ public class MenuController : MonoBehaviour
         for (int i = 0; i < _menu.MenuPlates().Count; i++)
         {
             PlateSO plate = _menu.MenuPlates()[i];
-            platesUI[i].SetMenuPlate(plate.PlateImage(), plate.PlateName());
-            platesUI[i].gameObject.GetComponent<Button>().onClick.AddListener(() => OnClick_PlateButton(plate));
+            platesUI[i].SetMenuPlate(i, plate.PlateImage(), plate.PlateName());
+            platesUI[i].OnSelectedMenuPlate += PickMenuPlate;
         }
     }
-    
-    #endregion
-    
-    #region Callbacks
 
-    private void OnClick_PlateButton(PlateSO plate)
+    private void PickMenuPlate(int index)
     {
-        GameManager.Instance.SetSelectedPlate(plate);
+        Debug.Log($"Elegido plato {index}");
+        GameManager.Instance.SetSelectedPlate(_menu.MenuPlates()[index]);
     }
-   
+    
     #endregion
 }

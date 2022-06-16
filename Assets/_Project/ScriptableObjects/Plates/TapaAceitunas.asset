@@ -15,5 +15,5 @@ MonoBehaviour:
   plateImage: {fileID: 0}
   plateName: Tapa de Aceitunas
   ingredients:
-  - ingredient: {fileID: 8562595175629981484, guid: 37c7efd4d19b84e4bb8d87621f0ea258, type: 3}
+  - ingredient: {fileID: 5377420886203835690, guid: 2a32e6fab2e89294aa1520b8a450f857, type: 3}
     quantity: 5

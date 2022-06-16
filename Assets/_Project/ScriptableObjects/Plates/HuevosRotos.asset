@@ -15,5 +15,11 @@ MonoBehaviour:
   plateImage: {fileID: 0}
   plateName: "Huevos Rotos con Jam\xF3n"
   ingredients:
-  - ingredient: {fileID: 3197161319868774387, guid: e5bba6171bda0d341aeef09472486c18, type: 3}
-    quantity: 3
+  - ingredient: {fileID: 3522897352402877276, guid: 5dc99349132138f4e9b9686eabd6b7cf, type: 3}
+    quantity: 1
+  - ingredient: {fileID: 5377420886203835690, guid: 2a32e6fab2e89294aa1520b8a450f857, type: 3}
+    quantity: 1
+  - ingredient: {fileID: 1260021144441232256, guid: 24cb8560043985c4da9007f98ed5661f, type: 3}
+    quantity: 1
+  - ingredient: {fileID: 3235137167871337426, guid: e201b8d884c053d44af355806421b5ec, type: 3}
+    quantity: 1
