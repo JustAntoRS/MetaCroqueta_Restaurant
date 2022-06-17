@@ -7,11 +7,11 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "ScriptableObjects/Plate", fileName = "New Plate")]
 public class PlateSO : ScriptableObject
 {
-    [SerializeField] private Image plateImage;
+    [SerializeField] private Sprite plateImage;
     [SerializeField] private string plateName;
     [SerializeField] private List<IngredientQuantity> ingredients;
 
-    public Image PlateImage() => plateImage;
+    public Sprite PlateImage() => plateImage;
     public string PlateName() => plateName;
     public List<IngredientQuantity> Ingredients() => ingredients;
 }

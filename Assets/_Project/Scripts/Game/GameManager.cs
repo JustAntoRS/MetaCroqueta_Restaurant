@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,24 @@ public enum GameStatus
     GameStarted
 }
 
+[Serializable]
+public class SpawnPosition
+{
+    public GameObject position;
+    public bool isVisited;
+
+    public void StartPosition()
+    {
+        isVisited = false;
+    }
+
+    public void SetVisited()
+    {
+        isVisited = true;
+    }
+
+}
+
 public class GameManager : Singleton<GameManager>
 {
     #region Vars
@@ -18,9 +37,9 @@ public class GameManager : Singleton<GameManager>
     [Tooltip("Game status that tells the system if we are playing or waiting to select a plate.")]
     public GameStatus gameStatus;
     [Tooltip("Transform point where the ingredients are going to be instantiated. That Transform should be placed over tableware.")]
-    [SerializeField] private Transform instancePoint;
+    [SerializeField] private List<SpawnPosition> spawnPositions;
 
-    [SerializeField] private GameObject vfxEating;
+    // [SerializeField] private GameObject vfxEating;
     [SerializeField] private GameObject sfxEating;
      
     private List<GameObject> selectedIngredients = new List<GameObject>();
@@ -55,12 +74,25 @@ public class GameManager : Singleton<GameManager>
             return;
         
         ClearIngredientsFromPlate();
+        ClearSpawningPoints();
         
         foreach(var ingredient  in plate.Ingredients())
         {
             foreach (int value in Enumerable.Range(1, ingredient.Quantity()))
             {
-                var go = Instantiate(ingredient.Ingredient(), instancePoint);
+                GameObject spawnPoint = null;
+                
+                foreach (var point in spawnPositions)
+                {
+                    if (!point.isVisited)
+                    {
+                        Debug.Log($"Se utiliza {point.position.name}");
+                        spawnPoint = point.position;
+                        point.SetVisited();
+                        break;
+                    }
+                }
+                var go = Instantiate(ingredient.Ingredient(), spawnPoint.transform);
                 selectedIngredients.Add(go);
             }
         }
@@ -81,8 +113,6 @@ public class GameManager : Singleton<GameManager>
 
         foreach (GameObject ingredient in selectedIngredients)
         {
-            // TODO 
-            // Start movement in the Ingredient script movement controller 
             ingredient.GetComponent<FoodBehaviour>().StartMovement();
         }
     }
@@ -95,14 +125,22 @@ public class GameManager : Singleton<GameManager>
         }
         
         selectedIngredients.Clear();
-
+    }
+    
+    private void ClearSpawningPoints()
+    {
+        foreach (var point in spawnPositions)
+        {
+            point.StartPosition();
+        }
     }
 
     public void IncreasePoints(GameObject ingredient)
     {
+        
         Vector3 position = ingredient.transform.position;
-        GameObject vfx = Instantiate(vfxEating);
-        vfx.transform.position = position;
+        // GameObject vfx = Instantiate(vfxEating);
+        // vfx.transform.position = position;
         
         GameObject sfx = Instantiate(sfxEating);
         sfx.transform.position = position;

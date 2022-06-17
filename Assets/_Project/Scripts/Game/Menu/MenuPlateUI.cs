@@ -13,10 +13,10 @@ public class MenuPlateUI : MonoBehaviour
     public delegate void SelectMenuPlate(int index);
     public event SelectMenuPlate OnSelectedMenuPlate;
     
-    public void SetMenuPlate(int index, Image image, string name)
+    public void SetMenuPlate(int index, Sprite image, string name)
     {
         plateIndex = index;
-        menuPlateImage = image;
+        menuPlateImage.sprite = image;
         menuPlateName.text = name;
         
         gameObject.SetActive(true);

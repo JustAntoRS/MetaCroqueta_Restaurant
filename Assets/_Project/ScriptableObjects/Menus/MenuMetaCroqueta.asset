@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MenuMetaCroqueta
   m_EditorClassIdentifier: 
   menuPlates:
-  - {fileID: 11400000, guid: a3bc5cc9f5cfcfc408a0b2c473a926a6, type: 2}
-  - {fileID: 11400000, guid: f2b200f9beeaa5f4ca2d4f039af0100a, type: 2}
+  - {fileID: 11400000, guid: 0f454ab9c4d93b84b883e923955a0b04, type: 2}
+  - {fileID: 11400000, guid: ef5ad67de40403e4d94cdd263ce91408, type: 2}

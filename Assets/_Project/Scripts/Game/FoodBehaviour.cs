@@ -54,6 +54,13 @@ public class FoodBehaviour : MonoBehaviour
         if (other.CompareTag("Mouth"))
         {
             Debug.Log($"Comido {other.name}");
+
+            if (vfxGrabbing) 
+            {
+                var vfx = Instantiate(vfxGrabbing);
+                vfx.transform.position = transform.position;
+            }
+
             GameManager.Instance.IncreasePoints(gameObject);
         }
     }
@@ -71,6 +78,7 @@ public class FoodBehaviour : MonoBehaviour
         Vector3 position = this.transform.position;
         position += Vector3.up * 0.1f; // Plus 0.1 in the Y scale
         Debug.Log("Instantiated grabbing VFX at position " + position);
+        
         if(vfxGrabbing)
         {
             GameObject vfx = Instantiate(vfxGrabbing);

@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: vfxBlood
+  m_Name: vfxBlood Bechamel
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -128,7 +128,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: vfxBlood
+  m_Name: vfxBlood Bechamel
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -4720,7 +4720,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.43175050616264346,"g":0.7735849022865295,"b":0.06933069974184036,"a":0.9372549057006836}'
+      m_SerializableObject: '{"r":0.8069524765014648,"g":0.3564002513885498,"b":0.04091520980000496,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: BloodColor
@@ -5096,7 +5096,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.43175050616264346,"g":0.7735849022865295,"b":0.06933069974184036,"a":0.9372549057006836}'
+      m_SerializableObject: '{"r":0.8069524765014648,"g":0.3564002513885498,"b":0.04091520980000496,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: BloodColor
