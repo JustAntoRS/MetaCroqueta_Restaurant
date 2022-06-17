@@ -27,6 +27,8 @@ public class GameManager : Singleton<GameManager>
     
     [Tooltip("Event that tracks the current game status")]
     public UnityEvent<GameStatus> gameStatusChangeEvent;
+    [Tooltip("Event that tracks how many points the player won")]
+    public UnityEvent<int> increasePoints;
     
     #endregion
     
@@ -108,6 +110,7 @@ public class GameManager : Singleton<GameManager>
         selectedIngredients.Remove(ingredient);
         Destroy(ingredient);
         
+        increasePoints.Invoke(100);
         Debug.Log("+100 points");
 
         if (selectedIngredients.Count == 0)
