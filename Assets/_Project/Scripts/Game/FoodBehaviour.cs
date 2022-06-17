@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class FoodBehaviour : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class FoodBehaviour : MonoBehaviour
     [SerializeField] private float movementSpeed;
 
     [SerializeField] private bool isStarted;
-    
+    [SerializeField] private GameObject vfxGrabbing;
     private bool movementFinished;
+    private XRGrabInteractable _interactable;
     
     #endregion
     
@@ -26,6 +28,9 @@ public class FoodBehaviour : MonoBehaviour
         isStarted = false;
         movementFinished = true;
         targetPos = gameObject;
+        _interactable = GetComponent<XRGrabInteractable>();
+        if (_interactable)
+            _interactable.selectEntered.AddListener(OnSelectEntered_Food);
     }
 
     // Update is called once per frame
@@ -58,6 +63,22 @@ public class FoodBehaviour : MonoBehaviour
         if (other.CompareTag("MovementPoint") && targetPos == other.gameObject)
         {
             movementFinished = true;
+        }
+    }
+    
+    private void OnSelectEntered_Food(SelectEnterEventArgs args)
+    {
+        Vector3 position = this.transform.position;
+        position += Vector3.up * 0.1f; // Plus 0.1 in the Y scale
+        Debug.Log("Instantiated grabbing VFX at position " + position);
+        if(vfxGrabbing)
+        {
+            GameObject vfx = Instantiate(vfxGrabbing);
+            vfx.transform.position = position;   
+        }
+        else
+        {
+            Debug.Log("VFX IS NULL WHEN GRABBING A CUBE");
         }
     }
     

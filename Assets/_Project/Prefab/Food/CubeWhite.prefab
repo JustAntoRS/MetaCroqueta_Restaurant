@@ -113,6 +113,7 @@ MonoBehaviour:
   targetPos: {fileID: 0}
   movementSpeed: 2
   isStarted: 0
+  vfxGrabbing: {fileID: 2067698143196067156, guid: ab4a4ac7931a3b143a38e77b1af049e1, type: 3}
 --- !u!54 &1260021144441232262
 Rigidbody:
   m_ObjectHideFlags: 0
