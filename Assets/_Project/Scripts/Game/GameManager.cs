@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum GameStatus
 {
@@ -24,6 +25,9 @@ public class GameManager : Singleton<GameManager>
      
     private List<GameObject> selectedIngredients = new List<GameObject>();
     
+    [Tooltip("Event that tracks the current game status")]
+    public UnityEvent<GameStatus> gameStatusChangeEvent;
+    
     #endregion
     
     #region Unity
@@ -31,7 +35,6 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         gameStatus = GameStatus.GameWaiting;
-     
         // Esto para testear que se instancien bien
         // SetSelectedPlate(menu.MenuPlates()[0]);
     }
@@ -72,6 +75,7 @@ public class GameManager : Singleton<GameManager>
             return;
         
         gameStatus = GameStatus.GameStarted;
+        gameStatusChangeEvent.Invoke(gameStatus);
 
         foreach (GameObject ingredient in selectedIngredients)
         {
@@ -109,6 +113,7 @@ public class GameManager : Singleton<GameManager>
         if (selectedIngredients.Count == 0)
         {
             gameStatus = GameStatus.GameWaiting;
+            gameStatusChangeEvent.Invoke(gameStatus);
         }
     }
     
